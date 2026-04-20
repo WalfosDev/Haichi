@@ -77,16 +77,22 @@ erDiagram
 
 Ports
 - `localhost:5173` for Vite
+- `localhost:80` for ReactApp compiled
 - `localhost:8000` for Django
 - `localhost:9000` for MinIO.
 - `localhost:9001` for MinIO console.
 - `localhost:5432` for PostgreSQL
 
-Django Dependencies
+Django is needed to run the server. I installed django-environ and djangorestframework to have a REST API server than can be configured using environment variables. The django-storages allows an object-storage to be linked to django. To configure the object-storage with AWS / MinIO boto3 is used. The psycopg2-binary is a PostgreSQL adapter for Python so django can communicate to the database, it is a standard python driver.
+
+Dependancies needed to get this working
+```bash
+pip install django django-environ psycopg2-binary django-storages boto3 djangorestframework
 ```
-pip install django-environ psycopy2-binary
-pip install django-storages boto3
-pip install djangorestframework
+
+Build
+```
+docker compose up --build
 ```
 
 ## Rough Notes
@@ -102,16 +108,15 @@ Think about
 - Can track ports using a `PORTS.md` or `docker-compose.yml` to list exposed ports and who owns it
 - Continious testing config
 - Add `rest_framework` to `INSTALLED_APPS` in settings after installing
-
-Dependancies needed to get this working
-```
-pip install django-environ psycopy2-binary
-pip install django-storages boto3
-pip install djangorestframework
-```
+ In production manage.py is for dev should be changed to an WSGI server
 
 Sources
 - Recomended to use ErDiagrams by claude learnt to make them using https://mermaid.js.org/syntax/entityRelationshipDiagram.html 
+- Used MinIO docker compose as reference https://github.com/minio/minio/blob/master/docs/orchestration/docker-compose/docker-compose.yaml 
+- For general volume referencing https://docs.docker.com/engine/storage/volumes/
+- For dockerizing django https://www.docker.com/blog/how-to-dockerize-django-app/
+- For postgreSQL https://hub.docker.com/_/postgres/
+- Claude suggested using django-environ instead of python os.environ https://django-environ.readthedocs.io/en/latest/tips.html#handling-inline-comments-in-env-files 
 
 Usage of AI
 - Claude used often to critique design decisions and improve my vocabulary as a developer
