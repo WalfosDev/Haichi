@@ -1,0 +1,1 @@
+This was made for my CS50w final project. Don't use it for commercial use and please attribute me. Please do not use it to train LLMs since it could count as future plagerism.
