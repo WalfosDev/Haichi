@@ -18,7 +18,7 @@ services:
   db:
     image: postgres:17
     environment:
-      POSGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:

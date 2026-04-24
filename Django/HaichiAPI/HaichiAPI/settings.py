@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,15 +25,39 @@ DEBUG = bool(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(",")
 
+# Configuring S3 storage (https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings)
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": os.environ.get('MINIO_BUCKET_NAME'),
+            "access_key": os.environ.get('MINIO_ROOT_USER'),
+            "secret_key": os.environ.get('MINIO_ROOT_PASSWORD'),
+            "endpoint_url": "http://miniobucket:9000",       # internal, for Django to upload
+            "custom_domain": "localhost:9000/miniobucket",   # external, for browser URLs
+            "signature_version": "s3v4",
+            "querystring_auth": False,
+            "addressing_style": "path",  # Critical for MinIO localhost
+            "use_ssl": False
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
+    'DISPLAY',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -115,4 +140,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # where collectstatic dumps files
+_STATIC_SRC = BASE_DIR / 'static'
+STATICFILES_DIRS = [_STATIC_SRC] if _STATIC_SRC.exists() else []

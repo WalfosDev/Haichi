@@ -108,7 +108,8 @@ Think about
 - Can track ports using a `PORTS.md` or `docker-compose.yml` to list exposed ports and who owns it
 - Continious testing config
 - Add `rest_framework` to `INSTALLED_APPS` in settings after installing
- In production manage.py is for dev should be changed to an WSGI server
+- In production manage.py is for dev should be changed to an WSGI server
+- Configuring static files properly [How to manage static files (e.g. images, JavaScript, CSS)](https://docs.djangoproject.com/en/5.2/howto/static-files/)
 
 Sources
 - Recomended to use ErDiagrams by claude learnt to make them using https://mermaid.js.org/syntax/entityRelationshipDiagram.html 
@@ -116,7 +117,9 @@ Sources
 - For general volume referencing https://docs.docker.com/engine/storage/volumes/
 - For dockerizing django https://www.docker.com/blog/how-to-dockerize-django-app/
 - For postgreSQL https://hub.docker.com/_/postgres/
-- Claude suggested using django-environ instead of python os.environ https://django-environ.readthedocs.io/en/latest/tips.html#handling-inline-comments-in-env-files 
+- Claude suggested using django-environ instead of python os.environ https://django-environ.readthedocs.io/en/latest/tips.html#handling-inline-comments-in-env-files \
+- For properly configuring S3 buckets https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings 
+- Custome file storage: https://docs.djangoproject.com/en/6.0/howto/custom-file-storage/ 
 
 Usage of AI
 - Claude used often to critique design decisions and improve my vocabulary as a developer
