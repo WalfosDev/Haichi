@@ -1,4 +1,3 @@
-[Uploading ARCHITECTURE.md…]()
 > ⚠️ **Academic Notice:** This project is submitted as a CS50W final project.
 > If you are currently enrolled in CS50W, do not copy or adapt this code.
 
