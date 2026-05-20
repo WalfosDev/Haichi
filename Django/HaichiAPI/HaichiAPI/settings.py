@@ -142,5 +142,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # where collectstatic dumps files
-_STATIC_SRC = BASE_DIR / 'static'
-STATICFILES_DIRS = [_STATIC_SRC] if _STATIC_SRC.exists() else []
+STATICFILES_DIRS = [BASE_DIR / 'static']  # your source static files
