@@ -36,7 +36,8 @@ The server is **stateless by design**: all session state lives in the database, 
 
 ---
 
-## System Architecture<img width="202" height="150" alt="Systems-Architecture-Diagram-Dev" src="https://github.com/user-attachments/assets/dbf25d92-0a17-4a73-a53b-e5bb06ec7e0a" />
+## System Architecture
+<img width="202" height="150" alt="Systems-Architecture-Diagram-Dev" src="https://github.com/user-attachments/assets/dbf25d92-0a17-4a73-a53b-e5bb06ec7e0a" />
 <svg id="diagram-graph" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 100%; max-height: 100%; width: auto; height: auto; background-color: rgb(23, 23, 25);" viewBox="-2 -51.73191833496094 718.759765625 532.8877563476562" role="graphics-document document" aria-roledescription="flowchart-v2" xmlns:xlink="http://www.w3.org/1999/xlink"><style>
       @font-face {
         font-family: 'Font Awesome 6 Free';
