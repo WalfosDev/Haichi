@@ -1,119 +1,110 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import { Container, Box } from '@mui/system'
+import { TextField } from '@mui/material'
+import GroupPage from './components/GroupPage'
+import DisplayPage from './components/DisplayPage'
+
+const PageMode = {
+  Home: 'home',
+  JoinDisplay: 'join_display',
+  CreateGroup: 'create_group',
+  ManageGroup: 'manage_group'
+} as const;
+
+type PageMode = typeof PageMode[keyof typeof PageMode];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pageMode, setPageMode] = useState<PageMode>(PageMode.Home);
+  const [createGroupActive, setCreateGroupActive] = useState<boolean>(true);
+  const [groupCode, setGroupCode] = useState<string>('');
+  const [displayJoinCode, setDisplayJoinCode] = useState<string>('');
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Container fixed
+        sx={{
+          display: 'grid',
+          gap: 2,
+          gridTemplateColumns: 'repeat(10, 1fr)',
+          gridTemplateRows: '1fr 12fr',
+          width: '100vw',
+          height: '96vh',
+          mt: '4vw'
+        }}>
+        <Box className="body__banner" sx={{display: 'contents'}}>
+          <Box sx={{ gridColumn: 'span 3', gridRow: '1 / 2', backgroundColor: 'red' }} onClick={(e) => setPageMode(PageMode.Home)}>
+            Logo
+          </Box>
 
-      <div className="ticks"></div>
+          <Box sx={{ gridColumn: 'span 1', gridRow: '1 / 2', backgroundColor: 'red' }}>
+            IMG
+          </Box>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <Box sx={{ gridColumn: '9 / 11', gridRow: '1 / 2', backgroundColor: 'red' }}>
+            STN
+          </Box>
+        </Box>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        <Box className="body__content" sx={{ gridRow: '2 / 3', gridColumn: '1 / -1' }}>
+        { /* --- Home Page --- */}
+          { pageMode == PageMode.Home &&
+            <Box sx={{
+              width: '100%',
+              height: '100%',
+              mt: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 4,
+              px: 4,
+            }}>
+              {/* -- Display Join --- */}
+              <TextField 
+                sx={{ height: '10%', backgroundColor: 'red', mt: "40%"}} 
+                value={displayJoinCode}
+                onChange={(e) => setDisplayJoinCode(e.target.value)} >
+                Display Code
+              </TextField>
+
+              <Box sx={{ height: '10%', backgroundColor: 'red' }} component={'button'}
+                onClick={(e) => setPageMode(PageMode.JoinDisplay)}>
+                Join as Display
+              </Box>
+
+              <hr style={{ width: '100%' }} />
+              {/* -- Group Join / Create --- */}
+              <TextField 
+                sx={{ height: '10%', backgroundColor: 'red' }} 
+                value={groupCode}
+                onChange={(e) => {
+                    setCreateGroupActive(e.target.value.length == 0)
+                    setGroupCode(e.target.value)}
+                  }>
+                Group Code
+              </TextField>
+
+              <Box sx={{ height: '10%', backgroundColor: 'red' }} component={'button'} 
+                onClick={(e) => setPageMode( createGroupActive ? PageMode.CreateGroup : PageMode.ManageGroup) }>
+                {createGroupActive ? <p>Create Group</p> : <p>Manage Group</p>}
+              </Box>
+            </Box>
+          }
+
+          { /* --- Group Page --- */}
+          { (pageMode == PageMode.ManageGroup || pageMode == PageMode.CreateGroup) &&
+            <GroupPage newGroup={pageMode == PageMode.CreateGroup} groupCode={groupCode}></GroupPage>
+          }
+
+          { /* --- Display Page --- */}
+          { (pageMode == PageMode.JoinDisplay) &&
+            <DisplayPage displayJoinCode={displayJoinCode}></DisplayPage>
+          }
+        </Box>
+
+        <Box className="body__footer">
+
+        </Box>
+      </Container>
     </>
   )
 }
