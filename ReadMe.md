@@ -36,6 +36,7 @@ The server is **stateless by design**: all session state lives in the database, 
 ---
 
 ## System Architecture
+<img width="1739" height="1286" alt="system_arch_haichi" src="https://github.com/user-attachments/assets/9fe1156b-5e3b-4920-8417-a9e3fb34c639" />
 
 ```
 Browser (React App)
